@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Million Checkboxes</title>
+</head>
+
+<!-- <style>
+    :root {
+        --bg: #f7f7f8;
+        --card: #ffffff;
+        --accent: #007aff;
+        --border: #e5e5ea;
+        --text: #1c1c1e;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 40px;
+        text-align: center;
+    }
+
+    h1 {
+        font-weight: 500;
+        font-size: 28px;
+        margin-bottom: 30px;
+        letter-spacing: -0.5px;
+    }
+
+    #container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+        gap: 14px;
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: var(--card);
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    input[type="checkbox"] {
+        appearance: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        border: 1.5px solid var(--border);
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+
+    input[type="checkbox"]:hover {
+        border-color: var(--accent);
+    }
+
+    input[type="checkbox"]:checked {
+        background: var(--accent);
+        border-color: var(--accent);
+    }
+
+    input[type="checkbox"]:checked::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 6px;
+        width: 5px;
+        height: 9px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+    /* subtle click feedback */
+    /* input[type="checkbox"]:active {
+        transform: scale(0.3);
+    } */
+</style> -->
+
+<body>
+    <h1>Checkboxes</h1>
+    <div id="container"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const container = document.getElementById('container');
+        const CHECKBOX_COUNT = 100;
+
+        soket.on('server:checkbox:change', (data) => {
+            console.log(`Socket Server Event`, data);
+         const { index, checked } = data; 
+
+         const input = document.getElementById(`checkbox-${index}`)
+         if(input) {
+            input.checked = checked};
+        });
+
+        window.addEventListener('load', async() =>{
+            const response = await fetch('/checkboxes', { method: 'GET'});
+            const data = await response.json();
+
+            if(data && data.checkboxes) {
+                data.checkboxes.forEach((serverValue, index) => {
+                    const input = document.createElement('input');
+
+                    input.type = 'checkbox';
+                    input.id = `checkbox -${index}`;
+                    input.checked = serverValue;
+
+                    input.addEventListener('change', (event) => {
+                const checked = event.target.checked;
+                console.log('Checkbox Changed', { index, checked });
+                socket.emit('client:checkbox:change', { index, checked });  
+            });
+             container.appendChild(input); 
+            }); 
+            }
+        });
+
+</script>
+</body>
+</html>
