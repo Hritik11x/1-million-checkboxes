@@ -1,0 +1,29 @@
+//------------------websocket or socket.io---------------------------------
+// WEBSOCKET user se request ayi server me or fr response gya then 
+// WEBSOCKET ke upr socketio jesa wrapper lagta hai taki identify ho
+// socket mtlb user or io mtlb server 
+// ------------------websocket or socket.io---------------------------------
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   
+// --------person to person chat keliye-----------
+
+// Socket ID = 4 //user 4 message send karega user 1 ko 
+
+// io.emit('message', to=1, 'Hello') //payload bana server me message gya ki 4 ne Hello send kiya 1 ko
+
+// socket.to(1).emit('Hello', from=4)  // server ne message pada or 1 ko bhej diya or bola 4 ki trf se aya wo message  fr 1 bhejega 4 ko fr 1 bhejega
+
+// --------person to person chat keliye-----------
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// --------group chat keliye-----------
+
+// Socket ID = 4
+
+// io.emit('Message')
+
+// socket.broadcast('message')
+
+//--------group chat keliye-----------

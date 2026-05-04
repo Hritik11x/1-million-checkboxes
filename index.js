@@ -7,7 +7,7 @@ import { Server } from 'socket.io';
 
 const CHECKBOX_SIZE = 100;
 const state = {
-    checkboxes: new Array(CHECKBOX_SIZE).fill(false),
+    checkboxes: new Array(CHECKBOX_SIZE).fill(false)
 };                  
 
 async function main() {
